@@ -1,5 +1,6 @@
 ---
 title: "wids_dataXB_eda"
+team: "Data XB"
 output: github_document
 ---
 
@@ -13,9 +14,24 @@ library(patchwork)
 ```
 
 ```{r read-dataset}
-varDict <- read.csv("widsdatathon2021/DataDictionaryWiDS2021.csv") #a csv file on every variable's meaning
+#a csv file on every variable's meaning
+varDict <- read.csv("widsdatathon2021/DataDictionaryWiDS2021.csv") 
 
-
+#EDA this dataset
+Diabetes <- read.csv("widsdatathon2021/TrainingWiDS2021.csv") 
 
 ```
 
+###EDA Question & TO DOs
+What are the missing values and their percentage in each column?
+  -How values should we use to fill in the NAs?
+What are variables related to diabetes?
+  -Every BMI-related variables?
+  -Ethnicity?Age?
+  -Do we use every chemical variables (albumin, calcium...) in our model?
+What columns can we drop? 
+  -every ID
+
+```{r glimpse-dataset}
+glimpse(Diabetes)
+```
