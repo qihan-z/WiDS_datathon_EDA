@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r library-packages}
 library(tidyverse)
 library(patchwork)
+library(dplyr)
 ```
 
 ```{r read-dataset}
@@ -31,7 +32,21 @@ What are variables related to diabetes?
   -Do we use every chemical variables (albumin, calcium...) in our model?
 What columns can we drop? 
   -every ID
+  
 
 ```{r glimpse-dataset}
 glimpse(Diabetes)
 ```
+
+```{r missing-in-each-column}
+colMeans(is.na(Diabetes))%>%
+  kable()
+```
+
+```{r diabetes_by_gender}
+Diabetes%>%
+  filter(!is.na(gender))%>%
+  ggplot(aes(x = gender, fill = factor(diabetes_mellitus)))+
+  geom_bar(position = "fill")
+```
+

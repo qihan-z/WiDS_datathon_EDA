@@ -24,6 +24,7 @@ library(tidyverse)
 
 ``` r
 library(patchwork)
+library(dplyr)
 ```
 
 ``` r
@@ -227,3 +228,201 @@ glimpse(Diabetes)
     ## $ lymphoma                    <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
     ## $ solid_tumor_with_metastasis <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
     ## $ diabetes_mellitus           <int> 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,…
+
+``` r
+colMeans(is.na(Diabetes))%>%
+  kable()
+```
+
+|                                |         x |
+| :----------------------------- | --------: |
+| X                              | 0.0000000 |
+| encounter\_id                  | 0.0000000 |
+| hospital\_id                   | 0.0000000 |
+| age                            | 0.0383229 |
+| bmi                            | 0.0344968 |
+| elective\_surgery              | 0.0000000 |
+| ethnicity                      | 0.0121930 |
+| gender                         | 0.0005071 |
+| height                         | 0.0159577 |
+| hospital\_admit\_source        | 0.2550612 |
+| icu\_admit\_source             | 0.0018439 |
+| icu\_id                        | 0.0000000 |
+| icu\_stay\_type                | 0.0000000 |
+| icu\_type                      | 0.0000000 |
+| pre\_icu\_los\_days            | 0.0000000 |
+| readmission\_status            | 0.0000000 |
+| weight                         | 0.0266063 |
+| albumin\_apache                | 0.6005286 |
+| apache\_2\_diagnosis           | 0.0129459 |
+| apache\_3j\_diagnosis          | 0.0066458 |
+| apache\_post\_operative        | 0.0000000 |
+| arf\_apache                    | 0.0000000 |
+| bilirubin\_apache              | 0.6343109 |
+| bun\_apache                    | 0.1952334 |
+| creatinine\_apache             | 0.1911691 |
+| fio2\_apache                   | 0.7661516 |
+| gcs\_eyes\_apache              | 0.0168258 |
+| gcs\_motor\_apache             | 0.0168258 |
+| gcs\_unable\_apache            | 0.0054473 |
+| gcs\_verbal\_apache            | 0.0168258 |
+| glucose\_apache                | 0.1129098 |
+| heart\_rate\_apache            | 0.0023741 |
+| hematocrit\_apache             | 0.2055825 |
+| intubated\_apache              | 0.0000000 |
+| map\_apache                    | 0.0032269 |
+| paco2\_apache                  | 0.7661516 |
+| paco2\_for\_ph\_apache         | 0.7661516 |
+| pao2\_apache                   | 0.7661516 |
+| ph\_apache                     | 0.7661516 |
+| resprate\_apache               | 0.0062079 |
+| sodium\_apache                 | 0.1883802 |
+| temp\_apache                   | 0.0507925 |
+| urineoutput\_apache            | 0.4853139 |
+| ventilated\_apache             | 0.0000000 |
+| wbc\_apache                    | 0.2264573 |
+| d1\_diasbp\_invasive\_max      | 0.7304102 |
+| d1\_diasbp\_invasive\_min      | 0.7304102 |
+| d1\_diasbp\_max                | 0.0021282 |
+| d1\_diasbp\_min                | 0.0021282 |
+| d1\_diasbp\_noninvasive\_max   | 0.0125694 |
+| d1\_diasbp\_noninvasive\_min   | 0.0125694 |
+| d1\_heartrate\_max             | 0.0020130 |
+| d1\_heartrate\_min             | 0.0020130 |
+| d1\_mbp\_invasive\_max         | 0.7288736 |
+| d1\_mbp\_invasive\_min         | 0.7288736 |
+| d1\_mbp\_max                   | 0.0025124 |
+| d1\_mbp\_min                   | 0.0025124 |
+| d1\_mbp\_noninvasive\_max      | 0.0171178 |
+| d1\_mbp\_noninvasive\_min      | 0.0171178 |
+| d1\_resprate\_max              | 0.0052475 |
+| d1\_resprate\_min              | 0.0052475 |
+| d1\_spo2\_max                  | 0.0040874 |
+| d1\_spo2\_min                  | 0.0040874 |
+| d1\_sysbp\_invasive\_max       | 0.7301797 |
+| d1\_sysbp\_invasive\_min       | 0.7301797 |
+| d1\_sysbp\_max                 | 0.0020821 |
+| d1\_sysbp\_min                 | 0.0020821 |
+| d1\_sysbp\_noninvasive\_max    | 0.0124696 |
+| d1\_sysbp\_noninvasive\_min    | 0.0124696 |
+| d1\_temp\_max                  | 0.0345275 |
+| d1\_temp\_min                  | 0.0345275 |
+| h1\_diasbp\_invasive\_max      | 0.8054042 |
+| h1\_diasbp\_invasive\_min      | 0.8054042 |
+| h1\_diasbp\_max                | 0.0424641 |
+| h1\_diasbp\_min                | 0.0424641 |
+| h1\_diasbp\_noninvasive\_max   | 0.0871179 |
+| h1\_diasbp\_noninvasive\_min   | 0.0871179 |
+| h1\_heartrate\_max             | 0.0313007 |
+| h1\_heartrate\_min             | 0.0313007 |
+| h1\_mbp\_invasive\_max         | 0.8049202 |
+| h1\_mbp\_invasive\_min         | 0.8049202 |
+| h1\_mbp\_max                   | 0.0501702 |
+| h1\_mbp\_min                   | 0.0501702 |
+| h1\_mbp\_noninvasive\_max      | 0.1021612 |
+| h1\_mbp\_noninvasive\_min      | 0.1021612 |
+| h1\_resprate\_max              | 0.0495863 |
+| h1\_resprate\_min              | 0.0495863 |
+| h1\_spo2\_max                  | 0.0479575 |
+| h1\_spo2\_min                  | 0.0479575 |
+| h1\_sysbp\_invasive\_max       | 0.8052352 |
+| h1\_sysbp\_invasive\_min       | 0.8052352 |
+| h1\_sysbp\_max                 | 0.0424026 |
+| h1\_sysbp\_min                 | 0.0424026 |
+| h1\_sysbp\_noninvasive\_max    | 0.0870487 |
+| h1\_sysbp\_noninvasive\_min    | 0.0870487 |
+| h1\_temp\_max                  | 0.2282090 |
+| h1\_temp\_min                  | 0.2282090 |
+| d1\_albumin\_max               | 0.5486144 |
+| d1\_albumin\_min               | 0.5486144 |
+| d1\_bilirubin\_max             | 0.5895572 |
+| d1\_bilirubin\_min             | 0.5895572 |
+| d1\_bun\_max                   | 0.1055187 |
+| d1\_bun\_min                   | 0.1055187 |
+| d1\_calcium\_max               | 0.1282451 |
+| d1\_calcium\_min               | 0.1282451 |
+| d1\_creatinine\_max            | 0.1019768 |
+| d1\_creatinine\_min            | 0.1019768 |
+| d1\_glucose\_max               | 0.0633312 |
+| d1\_glucose\_min               | 0.0633312 |
+| d1\_hco3\_max                  | 0.1540217 |
+| d1\_hco3\_min                  | 0.1540217 |
+| d1\_hemaglobin\_max            | 0.1247109 |
+| d1\_hemaglobin\_min            | 0.1247109 |
+| d1\_hematocrit\_max            | 0.1197631 |
+| d1\_hematocrit\_min            | 0.1197631 |
+| d1\_inr\_max                   | 0.6239618 |
+| d1\_inr\_min                   | 0.6239618 |
+| d1\_lactate\_max               | 0.7337523 |
+| d1\_lactate\_min               | 0.7337523 |
+| d1\_platelets\_max             | 0.1425740 |
+| d1\_platelets\_min             | 0.1425740 |
+| d1\_potassium\_max             | 0.0963913 |
+| d1\_potassium\_min             | 0.0963913 |
+| d1\_sodium\_max                | 0.1019538 |
+| d1\_sodium\_min                | 0.1019538 |
+| d1\_wbc\_max                   | 0.1339075 |
+| d1\_wbc\_min                   | 0.1339075 |
+| h1\_albumin\_max               | 0.9143189 |
+| h1\_albumin\_min               | 0.9143189 |
+| h1\_bilirubin\_max             | 0.9208955 |
+| h1\_bilirubin\_min             | 0.9208955 |
+| h1\_bun\_max                   | 0.8066412 |
+| h1\_bun\_min                   | 0.8066412 |
+| h1\_calcium\_max               | 0.8137941 |
+| h1\_calcium\_min               | 0.8137941 |
+| h1\_creatinine\_max            | 0.8050585 |
+| h1\_creatinine\_min            | 0.8050585 |
+| h1\_glucose\_max               | 0.5767880 |
+| h1\_glucose\_min               | 0.5767880 |
+| h1\_hco3\_max                  | 0.8174359 |
+| h1\_hco3\_min                  | 0.8174359 |
+| h1\_hemaglobin\_max            | 0.7897385 |
+| h1\_hemaglobin\_min            | 0.7897385 |
+| h1\_hematocrit\_max            | 0.7910139 |
+| h1\_hematocrit\_min            | 0.7910139 |
+| h1\_inr\_max                   | 0.6239618 |
+| h1\_inr\_min                   | 0.6239618 |
+| h1\_lactate\_max               | 0.9101854 |
+| h1\_lactate\_min               | 0.9101854 |
+| h1\_platelets\_max             | 0.8123190 |
+| h1\_platelets\_min             | 0.8123190 |
+| h1\_potassium\_max             | 0.7746107 |
+| h1\_potassium\_min             | 0.7746107 |
+| h1\_sodium\_max                | 0.7819864 |
+| h1\_sodium\_min                | 0.7819864 |
+| h1\_wbc\_max                   | 0.8142935 |
+| h1\_wbc\_min                   | 0.8142935 |
+| d1\_arterial\_pco2\_max        | 0.6489163 |
+| d1\_arterial\_pco2\_min        | 0.6489163 |
+| d1\_arterial\_ph\_max          | 0.6515746 |
+| d1\_arterial\_ph\_min          | 0.6515746 |
+| d1\_arterial\_po2\_max         | 0.6454513 |
+| d1\_arterial\_po2\_min         | 0.6454513 |
+| d1\_pao2fio2ratio\_max         | 0.7171262 |
+| d1\_pao2fio2ratio\_min         | 0.7171262 |
+| h1\_arterial\_pco2\_max        | 0.8272010 |
+| h1\_arterial\_pco2\_min        | 0.8272010 |
+| h1\_arterial\_ph\_max          | 0.8286070 |
+| h1\_arterial\_ph\_min          | 0.8286070 |
+| h1\_arterial\_po2\_max         | 0.8255030 |
+| h1\_arterial\_po2\_min         | 0.8255030 |
+| h1\_pao2fio2ratio\_max         | 0.8712324 |
+| h1\_pao2fio2ratio\_min         | 0.8712324 |
+| aids                           | 0.0000000 |
+| cirrhosis                      | 0.0000000 |
+| hepatic\_failure               | 0.0000000 |
+| immunosuppression              | 0.0000000 |
+| leukemia                       | 0.0000000 |
+| lymphoma                       | 0.0000000 |
+| solid\_tumor\_with\_metastasis | 0.0000000 |
+| diabetes\_mellitus             | 0.0000000 |
+
+``` r
+Diabetes%>%
+  filter(!is.na(gender))%>%
+  ggplot(aes(x = gender, fill = factor(diabetes_mellitus)))+
+  geom_bar(position = "fill")
+```
+
+![](wids_dataXB_eda_files/figure-gfm/diabetes_by_gender-1.png)<!-- -->
