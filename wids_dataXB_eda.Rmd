@@ -18,6 +18,7 @@ library(dplyr)
 #a csv file on every variable's meaning
 varDict <- read.csv("widsdatathon2021/DataDictionaryWiDS2021.csv") 
 
+varDict
 #EDA this dataset
 Diabetes <- read.csv("widsdatathon2021/TrainingWiDS2021.csv") 
 
@@ -38,10 +39,6 @@ What columns can we drop?
 glimpse(Diabetes)
 ```
 
-```{r missing-in-each-column}
-colMeans(is.na(Diabetes))%>%
-  kable()
-```
 
 ```{r diabetes_by_gender}
 Diabetes%>%
@@ -49,4 +46,57 @@ Diabetes%>%
   ggplot(aes(x = gender, fill = factor(diabetes_mellitus)))+
   geom_bar(position = "fill")
 ```
+
+```{r diabetes-ethnicity}
+Diabetes%>%
+  ggplot(aes(x = ethnicity, fill = factor(diabetes_mellitus))) + 
+  geom_bar(position = "fill")
+
+copyD <- Diabetes%>%
+  filter(!is.na(ethnicity))%>%
+  mutate(African = ifelse(ethnicity == "African American", 1, 0 ), 
+         Caucasian = ifelse(ethnicity == "Caucasian", 1, 0 ), 
+         Asian = ifelse(ethnicity == "Asian", 1, 0 ), 
+         Hispanic = ifelse(ethnicity == "Hispanic", 1, 0 ), 
+         Native_Am = ifelse(ethnicity == "Native American", 1, 0 ), 
+         Other = ifelse(ethnicity == "Other/Unknown", 1, 0))
+
+glimpse(copyD)
+```
+
+**Percentage of NAs in each Column**
+It seems that many columns have NA percentage greater 70%, should we drop these
+columns when we train the model? 
+
+```{r missing-in-each-column}
+colMeans(is.na(Diabetes))%>%
+  kable()
+```
+
+```{r test-how-to-write-function}
+#this function was created as a review on how to write function in R. Has no 
+#actual meaning to this dataset
+col_classes <- function(df) {
+    lapply(df, function(x) paste(class(x), collapse = ','))
+}
+
+col_classes(Diabetes)
+class(col_classes(Diabetes))
+```
+
+```{r get-colName-with-great-NA-percent}
+#Not sure how to write a function to get the names of columns with a great 
+#percentage of NAs. will work on this. 
+
+check_per <- function(y){
+  if((sum(is.na(y))/nrow(y)) > 0.7) {return (TRUE)} 
+  return (FALSE)
+}
+
+remove_col <- function(df){
+  mapply(df, function(x) paste(check_per(x)))
+}
+```
+
+
 
